@@ -25,8 +25,6 @@ public interface CassandraConfiguration extends Configuration {
     String CASSANDRA_KEYSPACE_PROPERTY_NAME = "workflow.cassandra.keyspace";
     String CASSANDRA_KEYSPACE_DEFAULT_VALUE = "conductor";
 
-<<<<<<< HEAD
-=======
     String CASSANDRA_REPLICATION_STRATEGY_PROPERTY_NAME = "workflow.cassandra.replication.strategy";
     String CASSANDRA_REPLICATION_STRATEGY_DEFAULT_VALUE = "SimpleStrategy";
 
@@ -36,7 +34,6 @@ public interface CassandraConfiguration extends Configuration {
     String CASSANDRA_REPLICATION_FACTOR_VALUE_PROPERTY_NAME = "workflow.cassandra.replicaton.factor.value";
     int CASSANDRA_REPLICATION_FACTOR_VALUE_DEFAULT_VALUE = 3;
 
->>>>>>> refactor
     String CASSANDRA_SHARD_SIZE_PROPERTY_KEY = "workflow.cassandra.shard.size";
     int CASSANDRA_SHARD_SIZE_DEFAULT_VALUE = 100;
 
@@ -52,17 +49,12 @@ public interface CassandraConfiguration extends Configuration {
         return getProperty(CASSANDRA_KEYSPACE_PROPERTY_NAME, CASSANDRA_KEYSPACE_DEFAULT_VALUE);
     }
 
-<<<<<<< HEAD
     default int getShardSize() {
         return getIntProperty(CASSANDRA_SHARD_SIZE_PROPERTY_KEY, CASSANDRA_SHARD_SIZE_DEFAULT_VALUE);
-    }
-=======
-    default String getReplicationStrategy() {
-        return getProperty(CASSANDRA_REPLICATION_STRATEGY_PROPERTY_NAME, CASSANDRA_REPLICATION_STRATEGY_DEFAULT_VALUE);
     }
 
-    default int getShardSize() {
-        return getIntProperty(CASSANDRA_SHARD_SIZE_PROPERTY_KEY, CASSANDRA_SHARD_SIZE_DEFAULT_VALUE);
+    default String getReplicationStrategy() {
+        return getProperty(CASSANDRA_REPLICATION_STRATEGY_PROPERTY_NAME, CASSANDRA_REPLICATION_STRATEGY_DEFAULT_VALUE);
     }
 
     default String getReplicationFactorKey() {
@@ -72,5 +64,4 @@ public interface CassandraConfiguration extends Configuration {
     default int getReplicatioFactorValue() {
         return getIntProperty(CASSANDRA_REPLICATION_FACTOR_VALUE_PROPERTY_NAME, CASSANDRA_REPLICATION_FACTOR_VALUE_DEFAULT_VALUE);
     }
->>>>>>> refactor
 }

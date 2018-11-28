@@ -145,8 +145,6 @@ public class TestConfiguration implements CassandraConfiguration {
     public String getKeyspace() {
         return "junit";
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public String getReplicationStrategy() {
@@ -162,5 +160,4 @@ public class TestConfiguration implements CassandraConfiguration {
     public int getReplicatioFactorValue() {
         return CASSANDRA_REPLICATION_FACTOR_VALUE_DEFAULT_VALUE;
     }
->>>>>>> refactor
 }

@@ -72,25 +72,6 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
     public CassandraExecutionDAO(Session session, ObjectMapper objectMapper, CassandraConfiguration config, Statements statements) {
         super(session, objectMapper, config);
 
-<<<<<<< HEAD
-        this.insertWorkflowStatement = session.prepare(statements.getInsertWorkflowStatement().toString());
-        this.insertTaskStatement = session.prepare(statements.getInsertTaskStatement().toString());
-
-        this.selectTotalStatement = session.prepare(statements.getSelectTotalStatement().toString());
-        this.selectTaskStatement = session.prepare(statements.getSelectTaskStatement().toString());
-        this.selectWorkflowStatement = session.prepare(statements.getSelectWorkflowStatement().toString());
-        this.selectWorkflowWithTasksStatement = session.prepare(statements.getSelectWorkflowWithTasksStatement().toString());
-        this.selectTaskLookupStatement = session.prepare(statements.getSelectTaskFromLookupTableStatement().toString());
-
-        this.updateWorkflowStatement = session.prepare(statements.getUpdateWorkflowStatement().toString());
-        this.updateTotalTasksStatement = session.prepare(statements.getUpdateTotalTasksStatement().toString());
-        this.updateTotalPartitionsStatement = session.prepare(statements.getUpdateTotalPartitionsStatement().toString());
-        this.updateTaskLookupStatement = session.prepare(statements.getUpdateTaskLookupStatement().toString());
-
-        this.deleteWorkflowStatement = session.prepare(statements.getDeleteWorkflowStatement().toString());
-        this.deleteTaskStatement = session.prepare(statements.getDeleteTaskStatement().toString());
-        this.deleteTaskLookupStatement = session.prepare(statements.getDeleteTaskLookupStatement().toString());
-=======
         this.insertWorkflowStatement = session.prepare(statements.getInsertWorkflowStatement());
         this.insertTaskStatement = session.prepare(statements.getInsertTaskStatement());
 
@@ -108,7 +89,6 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
         this.deleteWorkflowStatement = session.prepare(statements.getDeleteWorkflowStatement());
         this.deleteTaskStatement = session.prepare(statements.getDeleteTaskStatement());
         this.deleteTaskLookupStatement = session.prepare(statements.getDeleteTaskLookupStatement());
->>>>>>> refactor
     }
 
     @Override

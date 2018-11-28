@@ -12,10 +12,6 @@
  */
 package com.netflix.conductor.util;
 
-<<<<<<< HEAD
-import com.datastax.driver.core.Statement;
-=======
->>>>>>> refactor
 import com.datastax.driver.core.querybuilder.QueryBuilder;
 import com.netflix.conductor.cassandra.CassandraConfiguration;
 
@@ -45,11 +41,7 @@ public class Statements {
     }
 
     // Insert Statements
-<<<<<<< HEAD
-    public Statement getInsertWorkflowStatement() {
-=======
     public String getInsertWorkflowStatement() {
->>>>>>> refactor
         return QueryBuilder.insertInto(keyspace, TABLE_WORKFLOWS)
                 .value(WORKFLOW_ID_KEY, bindMarker())
                 .value(SHARD_ID_KEY, bindMarker())
@@ -57,37 +49,16 @@ public class Statements {
                 .value(ENTITY_KEY, ENTITY_TYPE_WORKFLOW)
                 .value(PAYLOAD_KEY, bindMarker())
                 .value(TOTAL_TASKS_KEY, bindMarker())
-<<<<<<< HEAD
-                .value(TOTAL_PARTITIONS_KEY, bindMarker());
-    }
-
-    public Statement getInsertTaskStatement() {
-=======
                 .value(TOTAL_PARTITIONS_KEY, bindMarker())
                 .getQueryString();
     }
 
     public String getInsertTaskStatement() {
->>>>>>> refactor
         return QueryBuilder.insertInto(keyspace, TABLE_WORKFLOWS)
                 .value(WORKFLOW_ID_KEY, bindMarker())
                 .value(SHARD_ID_KEY, bindMarker())
                 .value(TASK_ID_KEY, bindMarker())
                 .value(ENTITY_KEY, ENTITY_TYPE_TASK)
-<<<<<<< HEAD
-                .value(PAYLOAD_KEY, bindMarker());
-    }
-
-    // Select Statements
-    public Statement getSelectTotalStatement() {
-        return QueryBuilder.select(TOTAL_TASKS_KEY, TOTAL_PARTITIONS_KEY)
-                .from(keyspace, TABLE_WORKFLOWS)
-                .where(eq(WORKFLOW_ID_KEY, bindMarker()))
-                .and(eq(SHARD_ID_KEY, 1));
-    }
-
-    public Statement getSelectTaskStatement() {
-=======
                 .value(PAYLOAD_KEY, bindMarker())
                 .getQueryString();
     }
@@ -102,57 +73,29 @@ public class Statements {
     }
 
     public String getSelectTaskStatement() {
->>>>>>> refactor
         return QueryBuilder.select(PAYLOAD_KEY)
                 .from(keyspace, TABLE_WORKFLOWS)
                 .where(eq(WORKFLOW_ID_KEY, bindMarker()))
                 .and(eq(SHARD_ID_KEY, bindMarker()))
                 .and(eq(ENTITY_KEY, ENTITY_TYPE_TASK))
-<<<<<<< HEAD
-                .and(eq(TASK_ID_KEY, bindMarker()));
-    }
-
-    public Statement getSelectWorkflowStatement() {
-=======
                 .and(eq(TASK_ID_KEY, bindMarker()))
                 .getQueryString();
     }
 
     public String getSelectWorkflowStatement() {
->>>>>>> refactor
         return QueryBuilder.select(PAYLOAD_KEY)
                 .from(keyspace, TABLE_WORKFLOWS)
                 .where(eq(WORKFLOW_ID_KEY, bindMarker()))
                 .and(eq(SHARD_ID_KEY, 1))
-<<<<<<< HEAD
-                .and(eq(ENTITY_KEY, ENTITY_TYPE_WORKFLOW));
-    }
-
-    public Statement getSelectWorkflowWithTasksStatement() {
-=======
                 .and(eq(ENTITY_KEY, ENTITY_TYPE_WORKFLOW))
                 .getQueryString();
     }
 
     public String getSelectWorkflowWithTasksStatement() {
->>>>>>> refactor
         return QueryBuilder.select()
                 .all()
                 .from(keyspace, TABLE_WORKFLOWS)
                 .where(eq(WORKFLOW_ID_KEY, bindMarker()))
-<<<<<<< HEAD
-                .and(eq(SHARD_ID_KEY, bindMarker()));
-    }
-
-    public Statement getSelectTaskFromLookupTableStatement() {
-        return QueryBuilder.select(WORKFLOW_ID_KEY)
-                .from(keyspace, TABLE_TASK_LOOKUP)
-                .where(eq(TASK_ID_KEY, bindMarker()));
-    }
-
-    // Update Statements
-    public Statement getUpdateWorkflowStatement() {
-=======
                 .and(eq(SHARD_ID_KEY, bindMarker()))
                 .getQueryString();
     }
@@ -166,25 +109,11 @@ public class Statements {
 
     // Update Statements
     public String getUpdateWorkflowStatement() {
->>>>>>> refactor
         return QueryBuilder.update(keyspace, TABLE_WORKFLOWS)
                 .with(set(PAYLOAD_KEY, bindMarker()))
                 .where(eq(WORKFLOW_ID_KEY, bindMarker()))
                 .and(eq(SHARD_ID_KEY, 1))
                 .and(eq(ENTITY_KEY, ENTITY_TYPE_WORKFLOW))
-<<<<<<< HEAD
-                .and(eq(TASK_ID_KEY, ""));
-    }
-
-    public Statement getUpdateTotalTasksStatement() {
-        return QueryBuilder.update(keyspace, TABLE_WORKFLOWS)
-                .with(set(TOTAL_TASKS_KEY, bindMarker()))
-                .where(eq(WORKFLOW_ID_KEY, bindMarker()))
-                .and(eq(SHARD_ID_KEY, bindMarker()));
-    }
-
-    public Statement getUpdateTotalPartitionsStatement() {
-=======
                 .and(eq(TASK_ID_KEY, ""))
                 .getQueryString();
     }
@@ -198,37 +127,10 @@ public class Statements {
     }
 
     public String getUpdateTotalPartitionsStatement() {
->>>>>>> refactor
         return QueryBuilder.update(keyspace, TABLE_WORKFLOWS)
                 .with(set(TOTAL_PARTITIONS_KEY, bindMarker()))
                 .and(set(TOTAL_TASKS_KEY, bindMarker()))
                 .where(eq(WORKFLOW_ID_KEY, bindMarker()))
-<<<<<<< HEAD
-                .and(eq(SHARD_ID_KEY, 1));
-    }
-
-    public Statement getUpdateTaskLookupStatement() {
-        return QueryBuilder.update(keyspace, TABLE_TASK_LOOKUP)
-                .with(set(WORKFLOW_ID_KEY, bindMarker()))
-                .where(eq(TASK_ID_KEY, bindMarker()));
-    }
-
-    // Delete statements
-    public Statement getDeleteWorkflowStatement() {
-        return QueryBuilder.delete()
-                .from(keyspace, TABLE_WORKFLOWS)
-                .where(eq(WORKFLOW_ID_KEY, bindMarker()))
-                .and(eq(SHARD_ID_KEY, bindMarker()));
-    }
-
-    public Statement getDeleteTaskLookupStatement() {
-        return QueryBuilder.delete()
-                .from(keyspace, TABLE_TASK_LOOKUP)
-                .where(eq(TASK_ID_KEY, bindMarker()));
-    }
-
-    public Statement getDeleteTaskStatement() {
-=======
                 .and(eq(SHARD_ID_KEY, 1))
                 .getQueryString();
     }
@@ -257,17 +159,12 @@ public class Statements {
     }
 
     public String getDeleteTaskStatement() {
->>>>>>> refactor
         return QueryBuilder.delete()
                 .from(keyspace, TABLE_WORKFLOWS)
                 .where(eq(WORKFLOW_ID_KEY, bindMarker()))
                 .and(eq(SHARD_ID_KEY, bindMarker()))
                 .and(eq(ENTITY_KEY, ENTITY_TYPE_TASK))
-<<<<<<< HEAD
-                .and(eq(TASK_ID_KEY, bindMarker()));
-=======
                 .and(eq(TASK_ID_KEY, bindMarker()))
                 .getQueryString();
->>>>>>> refactor
     }
 }

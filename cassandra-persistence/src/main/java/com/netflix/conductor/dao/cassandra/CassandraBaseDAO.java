@@ -15,29 +15,18 @@
  */
 package com.netflix.conductor.dao.cassandra;
 
-<<<<<<< HEAD
-import com.datastax.driver.core.Session;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-=======
 import com.datastax.driver.core.DataType;
 import com.datastax.driver.core.Session;
 import com.datastax.driver.core.schemabuilder.SchemaBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
->>>>>>> refactor
 import com.netflix.conductor.cassandra.CassandraConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-<<<<<<< HEAD
-import static com.netflix.conductor.util.Constants.CREATE_KEYSPACE_STATEMENT;
-import static com.netflix.conductor.util.Constants.CREATE_TASK_LOOKUP_TABLE_STATEMENT;
-import static com.netflix.conductor.util.Constants.CREATE_WORKFLOWS_TABLE_STATEMENT;
-=======
 import static com.netflix.conductor.util.Constants.ENTITY_KEY;
 import static com.netflix.conductor.util.Constants.PAYLOAD_KEY;
 import static com.netflix.conductor.util.Constants.SHARD_ID_KEY;
@@ -47,7 +36,6 @@ import static com.netflix.conductor.util.Constants.TASK_ID_KEY;
 import static com.netflix.conductor.util.Constants.TOTAL_PARTITIONS_KEY;
 import static com.netflix.conductor.util.Constants.TOTAL_TASKS_KEY;
 import static com.netflix.conductor.util.Constants.WORKFLOW_ID_KEY;
->>>>>>> refactor
 
 public class CassandraBaseDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(CassandraBaseDAO.class);
@@ -66,15 +54,9 @@ public class CassandraBaseDAO {
 
     private void init() {
         try {
-<<<<<<< HEAD
-            session.execute(String.format(CREATE_KEYSPACE_STATEMENT, config.getKeyspace()));
-            session.execute(String.format(CREATE_WORKFLOWS_TABLE_STATEMENT, config.getKeyspace()));
-            session.execute(String.format(CREATE_TASK_LOOKUP_TABLE_STATEMENT, config.getKeyspace()));
-=======
             session.execute(getCreateKeyspaceStatement());
             session.execute(getCreateWorkflowsTableStatement());
             session.execute(getCreateTaskLookupTableStatement());
->>>>>>> refactor
             LOGGER.info("CassandraDAO initialization complete! Tables created!");
         } catch (Exception e) {
             LOGGER.error("Error initializing and setting up keyspace and table in cassandra", e);
@@ -82,8 +64,6 @@ public class CassandraBaseDAO {
         }
     }
 
-<<<<<<< HEAD
-=======
     private String getCreateKeyspaceStatement() {
         return SchemaBuilder.createKeyspace(config.getKeyspace())
                 .ifNotExists()
@@ -114,7 +94,6 @@ public class CassandraBaseDAO {
                 .getQueryString();
     }
 
->>>>>>> refactor
     String toJson(Object value) {
         try {
             return objectMapper.writeValueAsString(value);
