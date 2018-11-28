@@ -10,7 +10,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -76,6 +82,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -91,6 +100,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -133,10 +143,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -353,7 +363,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -419,6 +435,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -434,6 +453,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -476,10 +496,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -696,7 +716,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -762,6 +788,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -777,6 +806,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -819,10 +849,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -1039,7 +1069,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -1105,6 +1141,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -1120,6 +1159,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -1162,10 +1202,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -1452,7 +1492,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -1518,6 +1564,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -1533,6 +1582,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -1575,10 +1625,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -1795,7 +1845,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -1861,6 +1917,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -1876,6 +1935,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -1918,10 +1978,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -2138,7 +2198,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -2204,6 +2270,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -2219,6 +2288,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -2261,10 +2331,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -2481,7 +2551,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -2547,6 +2623,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -2562,6 +2641,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -2604,10 +2684,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -2832,7 +2912,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -2898,6 +2984,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -2913,6 +3002,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -2955,10 +3045,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -3183,7 +3273,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -3249,6 +3345,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -3264,6 +3363,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -3306,10 +3406,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {
@@ -3534,7 +3634,13 @@
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs"
             ],
-            "locked": "1.11.426"
+            "locked": "1.11.458"
+        },
+        "com.datastax.cassandra:cassandra-driver-core": {
+            "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence"
+            ],
+            "locked": "3.6.0"
         },
         "com.fasterxml.jackson.core:jackson-core": {
             "firstLevelTransitive": [
@@ -3600,6 +3706,9 @@
             ],
             "locked": "2.2.0"
         },
+        "com.netflix.conductor:conductor-cassandra-persistence": {
+            "project": true
+        },
         "com.netflix.conductor:conductor-common": {
             "firstLevelTransitive": [
                 "com.netflix.conductor:conductor-contribs",
@@ -3615,6 +3724,7 @@
         },
         "com.netflix.conductor:conductor-core": {
             "firstLevelTransitive": [
+                "com.netflix.conductor:conductor-cassandra-persistence",
                 "com.netflix.conductor:conductor-contribs",
                 "com.netflix.conductor:conductor-es5-persistence",
                 "com.netflix.conductor:conductor-grpc",
@@ -3657,10 +3767,10 @@
                 "com.netflix.conductor:conductor-grpc",
                 "com.netflix.conductor:conductor-jersey"
             ],
-            "locked": "1.1.3"
+            "locked": "1.1.4"
         },
         "com.netflix.runtime:health-guice": {
-            "locked": "1.1.3",
+            "locked": "1.1.4",
             "requested": "1.1.+"
         },
         "com.netflix.servo:servo-core": {

@@ -27,8 +27,12 @@ public interface Constants {
 
     String ENTITY_TYPE_WORKFLOW = "workflow";
     String ENTITY_TYPE_TASK = "task";
+<<<<<<< HEAD
 
     String CREATE_KEYSPACE_STATEMENT = "CREATE KEYSPACE IF NOT EXISTS %s WITH replication = { 'class' : 'NetworkTopologyStrategy', 'us-east' : '3' };";
     String CREATE_WORKFLOWS_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS %s." + TABLE_WORKFLOWS + " (" + WORKFLOW_ID_KEY + " uuid, " + SHARD_ID_KEY + " int, " + TASK_ID_KEY + " text, " + ENTITY_KEY + " text, " + PAYLOAD_KEY + " text, " + TOTAL_TASKS_KEY + " int STATIC, " + TOTAL_PARTITIONS_KEY + " int STATIC, PRIMARY KEY ((" + WORKFLOW_ID_KEY + ", " + SHARD_ID_KEY + "), " + ENTITY_KEY + ", " + TASK_ID_KEY + "));";
     String CREATE_TASK_LOOKUP_TABLE_STATEMENT = "CREATE TABLE IF NOT EXISTS %s." + TABLE_TASK_LOOKUP + "(" + TASK_ID_KEY + " uuid, " + WORKFLOW_ID_KEY + " uuid, PRIMARY KEY (" + TASK_ID_KEY + "));";
 }
+=======
+}
+>>>>>>> refactor

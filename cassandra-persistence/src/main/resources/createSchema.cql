@@ -4,7 +4,11 @@ CREATE KEYSPACE IF NOT EXISTS conductor
 CREATE TABLE IF NOT EXISTS conductor.workflows (
   workflow_id uuid,
   shard_id int,
+<<<<<<< HEAD
   task_id uuid,
+=======
+  task_id text,
+>>>>>>> refactor
   entity text,
   payload text,
   total_tasks int STATIC,

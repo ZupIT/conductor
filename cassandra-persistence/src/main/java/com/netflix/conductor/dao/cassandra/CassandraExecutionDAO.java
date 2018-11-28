@@ -72,6 +72,7 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
     public CassandraExecutionDAO(Session session, ObjectMapper objectMapper, CassandraConfiguration config, Statements statements) {
         super(session, objectMapper, config);
 
+<<<<<<< HEAD
         this.insertWorkflowStatement = session.prepare(statements.getInsertWorkflowStatement().toString());
         this.insertTaskStatement = session.prepare(statements.getInsertTaskStatement().toString());
 
@@ -89,6 +90,25 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
         this.deleteWorkflowStatement = session.prepare(statements.getDeleteWorkflowStatement().toString());
         this.deleteTaskStatement = session.prepare(statements.getDeleteTaskStatement().toString());
         this.deleteTaskLookupStatement = session.prepare(statements.getDeleteTaskLookupStatement().toString());
+=======
+        this.insertWorkflowStatement = session.prepare(statements.getInsertWorkflowStatement());
+        this.insertTaskStatement = session.prepare(statements.getInsertTaskStatement());
+
+        this.selectTotalStatement = session.prepare(statements.getSelectTotalStatement());
+        this.selectTaskStatement = session.prepare(statements.getSelectTaskStatement());
+        this.selectWorkflowStatement = session.prepare(statements.getSelectWorkflowStatement());
+        this.selectWorkflowWithTasksStatement = session.prepare(statements.getSelectWorkflowWithTasksStatement());
+        this.selectTaskLookupStatement = session.prepare(statements.getSelectTaskFromLookupTableStatement());
+
+        this.updateWorkflowStatement = session.prepare(statements.getUpdateWorkflowStatement());
+        this.updateTotalTasksStatement = session.prepare(statements.getUpdateTotalTasksStatement());
+        this.updateTotalPartitionsStatement = session.prepare(statements.getUpdateTotalPartitionsStatement());
+        this.updateTaskLookupStatement = session.prepare(statements.getUpdateTaskLookupStatement());
+
+        this.deleteWorkflowStatement = session.prepare(statements.getDeleteWorkflowStatement());
+        this.deleteTaskStatement = session.prepare(statements.getDeleteTaskStatement());
+        this.deleteTaskLookupStatement = session.prepare(statements.getDeleteTaskLookupStatement());
+>>>>>>> refactor
     }
 
     @Override

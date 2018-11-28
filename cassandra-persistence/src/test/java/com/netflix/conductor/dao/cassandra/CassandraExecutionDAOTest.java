@@ -21,12 +21,21 @@ import com.netflix.conductor.common.utils.JsonMapperProvider;
 import com.netflix.conductor.config.TestConfiguration;
 import com.netflix.conductor.core.execution.ApplicationException;
 import com.netflix.conductor.core.utils.IDGenerator;
+<<<<<<< HEAD
 import com.netflix.conductor.dao.ExecutionDAO;
 import com.netflix.conductor.dao.ExecutionDAOTest;
 import com.netflix.conductor.util.EmbeddedCassandra;
 import com.netflix.conductor.util.Statements;
 import org.junit.Before;
 import org.junit.Test;
+=======
+import com.netflix.conductor.util.EmbeddedCassandra;
+import com.netflix.conductor.util.Statements;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
+>>>>>>> refactor
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,7 +45,11 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+<<<<<<< HEAD
 public class CassandraExecutionDAOTest extends ExecutionDAOTest {
+=======
+public class CassandraExecutionDAOTest {
+>>>>>>> refactor
     private final TestConfiguration testConfiguration = new TestConfiguration();
     private final ObjectMapper objectMapper = new JsonMapperProvider().get();
 
@@ -44,6 +57,12 @@ public class CassandraExecutionDAOTest extends ExecutionDAOTest {
 
     private CassandraExecutionDAO executionDAO;
 
+<<<<<<< HEAD
+=======
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+>>>>>>> refactor
     @Before
     public void setUp() throws Exception {
         embeddedCassandra = new EmbeddedCassandra();
@@ -62,11 +81,14 @@ public class CassandraExecutionDAOTest extends ExecutionDAOTest {
 //        embeddedCassandra.cleanupData();
 //    }
 
+<<<<<<< HEAD
     @Override
     public ExecutionDAO getExecutionDAO() {
         return executionDAO;
     }
 
+=======
+>>>>>>> refactor
     @Test
     public void testValidateTasks() {
         List<Task> tasks = new ArrayList<>();
@@ -207,6 +229,7 @@ public class CassandraExecutionDAOTest extends ExecutionDAOTest {
         expectedException.expectMessage("not found in data store");
         executionDAO.getTask(task3.getTaskId());
     }
+<<<<<<< HEAD
 
     @Override
     @Test
@@ -217,4 +240,6 @@ public class CassandraExecutionDAOTest extends ExecutionDAOTest {
     @Test
     public void testPollData() {
     }
+=======
+>>>>>>> refactor
 }
