@@ -23,6 +23,7 @@ import com.netflix.conductor.core.execution.ApplicationException;
 import com.netflix.conductor.core.utils.IDGenerator;
 import com.netflix.conductor.util.EmbeddedCassandra;
 import com.netflix.conductor.util.Statements;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -50,20 +51,15 @@ public class CassandraExecutionDAOTest {
     @Before
     public void setUp() throws Exception {
         embeddedCassandra = new EmbeddedCassandra();
-        Cluster cluster = Cluster.builder()
-                .addContactPoints(testConfiguration.getHostAddress())
-                .withPort(testConfiguration.getPort())
-                .build();
-
-        Session session = cluster.connect();
+        Session session = embeddedCassandra.getSession();
         Statements statements = new Statements(testConfiguration);
         executionDAO = new CassandraExecutionDAO(session, objectMapper, testConfiguration, statements);
     }
 
-//    @After
-//    public void teardown() {
-//        embeddedCassandra.cleanupData();
-//    }
+    @After
+    public void teardown() {
+        embeddedCassandra.cleanupData();
+    }
 
     @Test
     public void testValidateTasks() {
