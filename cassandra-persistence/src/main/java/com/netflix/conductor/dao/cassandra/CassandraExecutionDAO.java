@@ -124,7 +124,12 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
 
             // update all the tasks in the workflow using batch
             BatchStatement batchStatement = new BatchStatement();
-            tasks.forEach(task -> batchStatement.add(insertTaskStatement.bind(UUID.fromString(workflowId), shardId, task.getTaskId(), toJson(task))));
+            tasks.forEach(task -> {
+                String taskPayload = toJson(task);
+                batchStatement.add(insertTaskStatement.bind(UUID.fromString(workflowId), shardId, task.getTaskId(), taskPayload));
+                recordCassandraDaoRequests("createTask", task.getTaskType(), task.getWorkflowType());
+                recordCassandraDaoPayloadSize("createTask", taskPayload.length(), task.getTaskType(), task.getWorkflowType());
+            });
             batchStatement.add(updateTotalTasksStatement.bind(totalTasks, UUID.fromString(workflowId), shardId));
             session.execute(batchStatement);
 
@@ -150,7 +155,10 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
             }
             int shardId = 1;
             // TODO: calculate the shard number the task belongs to
-            session.execute(insertTaskStatement.bind(UUID.fromString(task.getWorkflowInstanceId()), shardId, task.getTaskId(), toJson(task)));
+            String taskPayload = toJson(task);
+            session.execute(insertTaskStatement.bind(UUID.fromString(task.getWorkflowInstanceId()), shardId, task.getTaskId(), taskPayload));
+            recordCassandraDaoRequests("updateTask", task.getTaskType(), task.getWorkflowType());
+            recordCassandraDaoPayloadSize("updateTask", taskPayload.length(), task.getTaskType(), task.getWorkflowType());
         } catch (Exception e) {
             String errorMsg = String.format("Error updating task: %s in workflow: %s", task.getTaskId(), task.getWorkflowInstanceId());
             LOGGER.error(errorMsg, e);
@@ -205,9 +213,12 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
             int shardId = 1;
 
             ResultSet resultSet = session.execute(selectTaskStatement.bind(UUID.fromString(workflowId), shardId, taskId));
-            return Optional.ofNullable(resultSet.one())
+            Task task = Optional.ofNullable(resultSet.one())
                     .map(row -> readValue(row.getString(PAYLOAD_KEY), Task.class))
                     .orElseThrow(() -> new ApplicationException(ApplicationException.Code.NOT_FOUND, String.format("Task: %s, workflow: %s not found in data store", taskId, workflowId)));
+            recordCassandraDaoRequests("getTask", task.getTaskType(), task.getWorkflowType());
+            recordCassandraDaoPayloadSize("getTask", toJson(task).length(), task.getTaskType(), task.getWorkflowType());
+            return task;
         } catch (ApplicationException e) {
             throw e;
         } catch (Exception e) {
@@ -243,7 +254,10 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
             workflow.setCreateTime(System.currentTimeMillis());
             List<Task> tasks = workflow.getTasks();
             workflow.setTasks(new LinkedList<>());
-            session.execute(insertWorkflowStatement.bind(UUID.fromString(workflow.getWorkflowId()), 1, "", toJson(workflow), 0, 1));
+            String payload = toJson(workflow);
+            session.execute(insertWorkflowStatement.bind(UUID.fromString(workflow.getWorkflowId()), 1, "", payload, 0, 1));
+            recordCassandraDaoRequests("createWorkflow", "n/a", workflow.getWorkflowName());
+            recordCassandraDaoPayloadSize("createWorkflow", payload.length(), "n/a", workflow.getWorkflowName());
             workflow.setTasks(tasks);
             return workflow.getWorkflowId();
         } catch (Exception e) {
@@ -262,7 +276,10 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
             }
             List<Task> tasks = workflow.getTasks();
             workflow.setTasks(new LinkedList<>());
-            session.execute(updateWorkflowStatement.bind(toJson(workflow), UUID.fromString(workflow.getWorkflowId())));
+            String payload = toJson(workflow);
+            session.execute(updateWorkflowStatement.bind(payload, UUID.fromString(workflow.getWorkflowId())));
+            recordCassandraDaoRequests("createWorkflow", "n/a", workflow.getWorkflowName());
+            recordCassandraDaoPayloadSize("createWorkflow", payload.length(), "n/a", workflow.getWorkflowName());
             workflow.setTasks(tasks);
             return workflow.getWorkflowId();
         } catch (Exception e) {
@@ -281,6 +298,7 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
 
         try {
             session.execute(deleteWorkflowStatement.bind(UUID.fromString(workflowId), shardId));
+            recordCassandraDaoRequests("removeWorkflow", "n/a", workflow.getWorkflowName());
         } catch (Exception e) {
             String errorMsg = String.format("Failed to remove workflow: %s", workflowId);
             LOGGER.error(errorMsg, e);
@@ -302,13 +320,14 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
 
     @Override
     public Workflow getWorkflow(String workflowId, boolean includeTasks) {
+        Workflow workflow = null;
         try {
             ResultSet resultSet;
             if (includeTasks) {
                 int shardId = 1;
                 resultSet = session.execute(selectWorkflowWithTasksStatement.bind(UUID.fromString(workflowId), shardId));
                 List<Task> tasks = new ArrayList<>();
-                Workflow workflow = null;
+
 
                 List<Row> rows = resultSet.all();
                 if (rows.size() == 0) {
@@ -326,13 +345,14 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
                 }
 
                 workflow.setTasks(tasks);
-                return workflow;
             } else {
                 resultSet = session.execute(selectWorkflowStatement.bind(UUID.fromString(workflowId)));
-                return Optional.ofNullable(resultSet.one())
+                workflow = Optional.ofNullable(resultSet.one())
                         .map(row -> readValue(row.getString(PAYLOAD_KEY), Workflow.class))
                         .orElseThrow(() -> new ApplicationException(ApplicationException.Code.NOT_FOUND, String.format("Workflow: %s not found in data store", workflowId)));
             }
+            recordCassandraDaoRequests("getWorkflow", "n/a", workflow.getWorkflowName());
+            return workflow;
         } catch (ApplicationException e) {
             throw e;
         } catch (Exception e) {
@@ -458,6 +478,7 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
 
             // remove from task_lookup table
             session.execute(deleteTaskLookupStatement.bind(UUID.fromString(task.getTaskId())));
+            recordCassandraDaoRequests("removeTask", task.getTaskType(), task.getWorkflowType());
 
             // delete task from workflows table and decrement total tasks by 1
             BatchStatement batchStatement = new BatchStatement();
@@ -498,6 +519,7 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
     @VisibleForTesting
     WorkflowMetadata getWorkflowMetadata(String workflowId) {
         ResultSet resultSet = session.execute(selectTotalStatement.bind(UUID.fromString(workflowId)));
+        recordCassandraDaoRequests("getWorkflowMetadata");
         return Optional.ofNullable(resultSet.one())
                 .map(row -> {
                     WorkflowMetadata workflowMetadata = new WorkflowMetadata();

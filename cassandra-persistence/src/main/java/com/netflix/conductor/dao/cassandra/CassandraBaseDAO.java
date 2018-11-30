@@ -22,6 +22,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableMap;
 import com.netflix.conductor.cassandra.CassandraConfiguration;
+import com.netflix.conductor.metrics.Monitors;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,6 +41,8 @@ import static com.netflix.conductor.util.Constants.WORKFLOW_ID_KEY;
 
 public class CassandraBaseDAO {
     private static final Logger LOGGER = LoggerFactory.getLogger(CassandraBaseDAO.class);
+
+    private static final String DAO_NAME = "cassandra";
 
     protected final Session session;
     protected final ObjectMapper objectMapper;
@@ -108,6 +112,22 @@ public class CassandraBaseDAO {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    void recordCassandraDaoRequests(String action) {
+        recordCassandraDaoRequests(action, "n/a", "n/a");
+    }
+
+    void recordCassandraDaoRequests(String action, String taskType, String workflowType) {
+        Monitors.recordDaoRequests(DAO_NAME, action, taskType, workflowType);
+    }
+
+    void recordCassandraDaoEventRequests(String action, String event) {
+        Monitors.recordDaoEventRequests(DAO_NAME, action, event);
+    }
+
+    void recordCassandraDaoPayloadSize(String action, int size, String taskType, String workflowType) {
+        Monitors.recordDaoPayloadSize(DAO_NAME, action, StringUtils.defaultIfBlank(taskType,""), StringUtils.defaultIfBlank(workflowType,""), size);
     }
 
     static class WorkflowMetadata {
