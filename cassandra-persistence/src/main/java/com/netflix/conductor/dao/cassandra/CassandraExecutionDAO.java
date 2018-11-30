@@ -507,7 +507,8 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
                 }).orElseThrow(() -> new ApplicationException(ApplicationException.Code.NOT_FOUND, String.format("Workflow with id: %s not found in data store", workflowId)));
     }
 
-    private String lookupWorkflowIdFromTaskId(String taskId) {
+    @VisibleForTesting
+    String lookupWorkflowIdFromTaskId(String taskId) {
         try {
             ResultSet resultSet = session.execute(selectTaskLookupStatement.bind(UUID.fromString(taskId)));
             return Optional.ofNullable(resultSet.one())

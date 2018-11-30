@@ -166,6 +166,14 @@ public class CassandraExecutionDAOTest {
         task = executionDAO.getTask(task3Id);
         assertEquals(task3, task);
 
+        // check the task lookup table
+        String foundId = executionDAO.lookupWorkflowIdFromTaskId(task1Id);
+        assertEquals(foundId, workflowId);
+        foundId = executionDAO.lookupWorkflowIdFromTaskId(task2Id);
+        assertEquals(foundId, workflowId);
+        foundId = executionDAO.lookupWorkflowIdFromTaskId(task3Id);
+        assertEquals(foundId, workflowId);
+
         WorkflowMetadata workflowMetadata = executionDAO.getWorkflowMetadata(workflowId);
         assertEquals(3, workflowMetadata.getTotalTasks());
         assertEquals(1, workflowMetadata.getTotalPartitions());
@@ -203,6 +211,17 @@ public class CassandraExecutionDAOTest {
         assertEquals(2, found.getTasks().size());
         assertEquals(task1, found.getTaskByRefName("task1"));
         assertEquals(task2, found.getTaskByRefName("task2"));
+
+        // check the task lookup table
+        foundId = executionDAO.lookupWorkflowIdFromTaskId(task1Id);
+        assertEquals(foundId, workflowId);
+        foundId = executionDAO.lookupWorkflowIdFromTaskId(task2Id);
+        assertEquals(foundId, workflowId);
+
+        expectedException.expect(ApplicationException.class);
+        expectedException.expectMessage("not found in data store");
+        foundId = executionDAO.lookupWorkflowIdFromTaskId(task3Id);
+        assertEquals(foundId, workflowId);
 
         // try to read removed task
         expectedException.expect(ApplicationException.class);
