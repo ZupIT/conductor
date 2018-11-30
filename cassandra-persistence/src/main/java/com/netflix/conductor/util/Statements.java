@@ -41,6 +41,10 @@ public class Statements {
     }
 
     // Insert Statements
+
+    /**
+     * @return cql query statement to insert a new workflow into the "workflows" table
+     */
     public String getInsertWorkflowStatement() {
         return QueryBuilder.insertInto(keyspace, TABLE_WORKFLOWS)
                 .value(WORKFLOW_ID_KEY, bindMarker())
@@ -53,6 +57,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to insert a new task into the "workflows" table
+     */
     public String getInsertTaskStatement() {
         return QueryBuilder.insertInto(keyspace, TABLE_WORKFLOWS)
                 .value(WORKFLOW_ID_KEY, bindMarker())
@@ -64,6 +71,10 @@ public class Statements {
     }
 
     // Select Statements
+
+    /**
+     * @return cql query statement to retrieve the total_tasks and total_partitions for a workflow from the "workflows" table
+     */
     public String getSelectTotalStatement() {
         return QueryBuilder.select(TOTAL_TASKS_KEY, TOTAL_PARTITIONS_KEY)
                 .from(keyspace, TABLE_WORKFLOWS)
@@ -72,6 +83,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to retrieve a task from the "workflows" table
+     */
     public String getSelectTaskStatement() {
         return QueryBuilder.select(PAYLOAD_KEY)
                 .from(keyspace, TABLE_WORKFLOWS)
@@ -82,6 +96,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to retrieve a workflow (without its tasks) from the "workflows" table
+     */
     public String getSelectWorkflowStatement() {
         return QueryBuilder.select(PAYLOAD_KEY)
                 .from(keyspace, TABLE_WORKFLOWS)
@@ -91,6 +108,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to retrieve a workflow with its tasks from the "workflows" table
+     */
     public String getSelectWorkflowWithTasksStatement() {
         return QueryBuilder.select()
                 .all()
@@ -100,6 +120,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to retrieve the workflow_id for a particular task_id from the "task_lookup" table
+     */
     public String getSelectTaskFromLookupTableStatement() {
         return QueryBuilder.select(WORKFLOW_ID_KEY)
                 .from(keyspace, TABLE_TASK_LOOKUP)
@@ -108,6 +131,9 @@ public class Statements {
     }
 
     // Update Statements
+    /**
+     * @return cql query statement to update a workflow in the "workflows" table
+     */
     public String getUpdateWorkflowStatement() {
         return QueryBuilder.update(keyspace, TABLE_WORKFLOWS)
                 .with(set(PAYLOAD_KEY, bindMarker()))
@@ -118,6 +144,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to update the total_tasks in a shard for a workflow in the "workflows" table
+     */
     public String getUpdateTotalTasksStatement() {
         return QueryBuilder.update(keyspace, TABLE_WORKFLOWS)
                 .with(set(TOTAL_TASKS_KEY, bindMarker()))
@@ -126,6 +155,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to update the total_partitions for a workflow in the "workflows" table
+     */
     public String getUpdateTotalPartitionsStatement() {
         return QueryBuilder.update(keyspace, TABLE_WORKFLOWS)
                 .with(set(TOTAL_PARTITIONS_KEY, bindMarker()))
@@ -135,6 +167,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to add a new task_id to workflow_id mapping to the "task_lookup" table
+     */
     public String getUpdateTaskLookupStatement() {
         return QueryBuilder.update(keyspace, TABLE_TASK_LOOKUP)
                 .with(set(WORKFLOW_ID_KEY, bindMarker()))
@@ -143,6 +178,9 @@ public class Statements {
     }
 
     // Delete statements
+    /**
+     * @return cql query statement to delete a workflow from the "workflows" table
+     */
     public String getDeleteWorkflowStatement() {
         return QueryBuilder.delete()
                 .from(keyspace, TABLE_WORKFLOWS)
@@ -151,6 +189,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to delete a task_id to workflow_id mapping from the "task_lookup" table
+     */
     public String getDeleteTaskLookupStatement() {
         return QueryBuilder.delete()
                 .from(keyspace, TABLE_TASK_LOOKUP)
@@ -158,6 +199,9 @@ public class Statements {
                 .getQueryString();
     }
 
+    /**
+     * @return cql query statement to delete a task from the "workflows" table
+     */
     public String getDeleteTaskStatement() {
         return QueryBuilder.delete()
                 .from(keyspace, TABLE_WORKFLOWS)

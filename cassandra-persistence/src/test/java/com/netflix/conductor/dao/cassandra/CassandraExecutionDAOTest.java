@@ -12,7 +12,6 @@
  */
 package com.netflix.conductor.dao.cassandra;
 
-import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.conductor.common.metadata.tasks.Task;
@@ -34,6 +33,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import static com.netflix.conductor.dao.cassandra.CassandraBaseDAO.WorkflowMetadata;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -166,6 +166,10 @@ public class CassandraExecutionDAOTest {
         task = executionDAO.getTask(task3Id);
         assertEquals(task3, task);
 
+        WorkflowMetadata workflowMetadata = executionDAO.getWorkflowMetadata(workflowId);
+        assertEquals(3, workflowMetadata.getTotalTasks());
+        assertEquals(1, workflowMetadata.getTotalPartitions());
+
         List<Task> fetchedTasks = executionDAO.getTasks(Arrays.asList(task1Id, task2Id, task3Id));
         assertNotNull(fetchedTasks);
         assertEquals(3, fetchedTasks.size());
@@ -187,6 +191,10 @@ public class CassandraExecutionDAOTest {
 
         // remove a task
         executionDAO.removeTask(task3.getTaskId());
+
+        workflowMetadata = executionDAO.getWorkflowMetadata(workflowId);
+        assertEquals(2, workflowMetadata.getTotalTasks());
+        assertEquals(1, workflowMetadata.getTotalPartitions());
 
         // read workflow with tasks again
         found = executionDAO.getWorkflow(workflowId, true);

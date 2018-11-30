@@ -129,7 +129,7 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
             session.execute(batchStatement);
 
             // update the total tasks and partitions for the workflow
-            session.execute(updateTotalPartitionsStatement.bind(totalTasks, totalPartitions, UUID.fromString(workflowId)));
+            session.execute(updateTotalPartitionsStatement.bind(totalPartitions, totalTasks, UUID.fromString(workflowId)));
 
             return tasks;
         } catch (ApplicationException e) {
@@ -452,8 +452,18 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
         // TODO: calculate shard number based on seq and maxTasksPerShard
         int shardId = 1;
         try {
+            // get total tasks for this workflow
+            WorkflowMetadata workflowMetadata = getWorkflowMetadata(task.getWorkflowInstanceId());
+            int totalTasks = workflowMetadata.getTotalTasks();
+
+            // remove from task_lookup table
             session.execute(deleteTaskLookupStatement.bind(UUID.fromString(task.getTaskId())));
-            session.execute(deleteTaskStatement.bind(UUID.fromString(task.getWorkflowInstanceId()), shardId, task.getTaskId()));
+
+            // delete task from workflows table and decrement total tasks by 1
+            BatchStatement batchStatement = new BatchStatement();
+            batchStatement.add(deleteTaskStatement.bind(UUID.fromString(task.getWorkflowInstanceId()), shardId, task.getTaskId()));
+            batchStatement.add(updateTotalTasksStatement.bind(totalTasks - 1, UUID.fromString(task.getWorkflowInstanceId()), shardId));
+            session.execute(batchStatement);
         } catch (Exception e) {
             String errorMsg = String.format("Failed to remove task: %s", task.getTaskId());
             LOGGER.error(errorMsg, e);
@@ -485,7 +495,8 @@ public class CassandraExecutionDAO extends CassandraBaseDAO implements Execution
         }
     }
 
-    private WorkflowMetadata getWorkflowMetadata(String workflowId) {
+    @VisibleForTesting
+    WorkflowMetadata getWorkflowMetadata(String workflowId) {
         ResultSet resultSet = session.execute(selectTotalStatement.bind(UUID.fromString(workflowId)));
         return Optional.ofNullable(resultSet.one())
                 .map(row -> {
