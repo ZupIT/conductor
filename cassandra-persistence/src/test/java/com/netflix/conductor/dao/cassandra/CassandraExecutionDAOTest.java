@@ -135,20 +135,23 @@ public class CassandraExecutionDAOTest {
         // create tasks for this workflow
         Task task1 = new Task();
         task1.setWorkflowInstanceId(workflowId);
+        task1.setTaskType("task1");
         task1.setReferenceTaskName("task1");
-        task1.setStatus(Task.Status.IN_PROGRESS);
+        task1.setStatus(Task.Status.SCHEDULED);
         String task1Id = IDGenerator.generate();
         task1.setTaskId(task1Id);
         Task task2 = new Task();
         task2.setWorkflowInstanceId(workflowId);
+        task2.setTaskType("task2");
         task2.setReferenceTaskName("task2");
-        task1.setStatus(Task.Status.IN_PROGRESS);
+        task1.setStatus(Task.Status.SCHEDULED);
         String task2Id = IDGenerator.generate();
         task2.setTaskId(task2Id);
         Task task3 = new Task();
         task3.setWorkflowInstanceId(workflowId);
+        task3.setTaskType("task3");
         task3.setReferenceTaskName("task3");
-        task1.setStatus(Task.Status.IN_PROGRESS);
+        task1.setStatus(Task.Status.SCHEDULED);
         String task3Id = IDGenerator.generate();
         task3.setTaskId(task3Id);
         List<Task> taskList = new ArrayList<>(Arrays.asList(task1, task2, task3));
@@ -182,6 +185,10 @@ public class CassandraExecutionDAOTest {
         assertNotNull(fetchedTasks);
         assertEquals(3, fetchedTasks.size());
 
+        fetchedTasks = executionDAO.getTasksForWorkflow(workflowId);
+        assertNotNull(fetchedTasks);
+        assertEquals(3, fetchedTasks.size());
+
         // read workflow with tasks
         Workflow found = executionDAO.getWorkflow(workflowId, true);
         assertNotNull(found);
@@ -192,10 +199,25 @@ public class CassandraExecutionDAOTest {
         assertEquals(task3, found.getTaskByRefName("task3"));
 
         // update a task
-        task1.setStatus(Task.Status.COMPLETED);
+        task1.setStatus(Task.Status.IN_PROGRESS);
         executionDAO.updateTask(task1);
         task = executionDAO.getTask(task1Id);
         assertEquals(task1, task);
+
+        // update multiple tasks
+        task2.setStatus(Task.Status.COMPLETED);
+        task3.setStatus(Task.Status.FAILED);
+        executionDAO.updateTasks(Arrays.asList(task2, task3));
+        task = executionDAO.getTask(task2Id);
+        assertEquals(task2, task);
+        task = executionDAO.getTask(task3Id);
+        assertEquals(task3, task);
+
+        // get pending tasks for the workflow
+        List<Task> pendingTasks = executionDAO.getPendingTasksByWorkflow(task1.getTaskType(), workflowId);
+        assertNotNull(pendingTasks);
+        assertEquals(1, pendingTasks.size());
+        assertEquals(task1, pendingTasks.get(0));
 
         // remove a task
         executionDAO.removeTask(task3.getTaskId());
@@ -205,7 +227,7 @@ public class CassandraExecutionDAOTest {
         assertEquals(1, workflowMetadata.getTotalPartitions());
 
         // read workflow with tasks again
-        found = executionDAO.getWorkflow(workflowId, true);
+        found = executionDAO.getWorkflow(workflowId);
         assertNotNull(found);
         assertEquals(workflow.getWorkflowId(), found.getWorkflowId());
         assertEquals(2, found.getTasks().size());
