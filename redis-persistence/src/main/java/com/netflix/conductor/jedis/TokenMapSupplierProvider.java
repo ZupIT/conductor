@@ -1,44 +1,71 @@
 package com.netflix.conductor.jedis;
 
-import com.google.common.collect.Lists;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.netflix.dyno.connectionpool.Host;
-import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
+import com.netflix.dyno.connectionpool.impl.lb.AbstractTokenMapSupplier;
 import com.netflix.dyno.connectionpool.impl.lb.HostToken;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class TokenMapSupplierProvider implements Provider<TokenMapSupplier> {
-    private final HostSupplier hostSupplier;
+    private final HostTokenSupplier hostTokenSupplier;
+    private final ObjectMapper objectMapper;
 
     @Inject
-    public TokenMapSupplierProvider(HostSupplier hostSupplier) {
-        this.hostSupplier = hostSupplier;
+    public TokenMapSupplierProvider(HostTokenSupplier hostTokenSupplier, ObjectMapper objectMapper) {
+        this.hostTokenSupplier = hostTokenSupplier;
+        this.objectMapper = objectMapper;
     }
 
     @Override
     public TokenMapSupplier get() {
-        return new TokenMapSupplier() {
+        return new StaticTopologyTokenMapSupplier(hostTokenSupplier.getHostsTokens(), objectMapper);
+    }
 
-            // FIXME This isn't particularly safe, but it is equivalent to the existing code.
-            // FIXME It seems like we should be supply tokens for more than one host?
-            HostToken token = new HostToken(1L, Lists.newArrayList(hostSupplier.getHosts()).get(0));
+    private static class StaticTopologyTokenMapSupplier extends AbstractTokenMapSupplier {
 
-            @Override
-            public List<HostToken> getTokens(Set<Host> activeHosts) {
-                return Arrays.asList(token);
+        private final String jsonTopology;
+
+        StaticTopologyTokenMapSupplier(List<HostToken> hostTokens, ObjectMapper objectMapper) {
+            this.jsonTopology = convertToJson(buildTokenHosts(hostTokens), objectMapper);
+        }
+
+        @Override
+        public String getTopologyJsonPayload(Set<Host> activeHosts) {
+            return jsonTopology;
+        }
+
+        @Override
+        public String getTopologyJsonPayload(String hostname) {
+            return jsonTopology;
+        }
+
+        private List<TokenHost> buildTokenHosts(List<HostToken> hostTokens) {
+            return hostTokens.stream()
+                    .map(this::convertHostTokenToTokenHost)
+                    .collect(Collectors.toList());
+        }
+
+        private TokenHost convertHostTokenToTokenHost(HostToken hostToken) {
+            Host host = hostToken.getHost();
+            return new TokenHost(hostToken.getToken().toString(),
+                    host.getHostName(),
+                    host.getRack(),
+                    host.getDatacenter());
+        }
+
+        private String convertToJson(List<TokenHost> tokenHosts, ObjectMapper objectMapper) {
+            try {
+                return objectMapper.writeValueAsString(tokenHosts);
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException("Error when generating dynomite json topology", e);
             }
-
-            @Override
-            public HostToken getTokenForHost(Host host, Set<Host> activeHosts) {
-                return token;
-            }
-        };
+        }
     }
 }

@@ -7,9 +7,7 @@ import com.netflix.conductor.dyno.DynoShardSupplierProvider;
 import com.netflix.conductor.dyno.DynomiteConfiguration;
 import com.netflix.conductor.dyno.RedisQueuesProvider;
 import com.netflix.conductor.dyno.SystemPropertiesDynomiteConfiguration;
-import com.netflix.conductor.jedis.ConfigurationHostSupplierProvider;
-import com.netflix.conductor.jedis.DynomiteJedisProvider;
-import com.netflix.conductor.jedis.TokenMapSupplierProvider;
+import com.netflix.conductor.jedis.*;
 import com.netflix.dyno.connectionpool.HostSupplier;
 import com.netflix.dyno.connectionpool.TokenMapSupplier;
 import com.netflix.dyno.queues.ShardSupplier;
@@ -28,6 +26,7 @@ public class DynomiteClusterModule extends AbstractModule {
                 .toProvider(DynomiteJedisProvider.class)
                 .asEagerSingleton();
         bind(HostSupplier.class).toProvider(ConfigurationHostSupplierProvider.class);
+        bind(HostTokenSupplier.class).toProvider(ConfigurationHostTokenSupplierProvider.class);
         bind(TokenMapSupplier.class).toProvider(TokenMapSupplierProvider.class);
         bind(ShardSupplier.class).toProvider(DynoShardSupplierProvider.class);
     }
