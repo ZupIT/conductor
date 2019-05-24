@@ -14,6 +14,8 @@ WORKDIR /conductor
 # Make app folders
 RUN mkdir -p /app/config /app/logs /app/libs
 
+RUN find / -name "startup.sh"
+
 # Copy the project directly onto the image
 COPY ./docker_zupme/startup.sh /app
 COPY ./docker/server/config /app/config
