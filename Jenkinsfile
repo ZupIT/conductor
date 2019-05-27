@@ -12,7 +12,7 @@ node {
 
     buildDockerContainer {
       dockerRepositoryName = "zupme-conductor_server"
-      dockerFileLocation = "./docker_zupme"
+      dockerFileLocation = "."
       team = "gateway"
       dockerRegistryGroup = "ZUPME"
     }
