@@ -8,7 +8,7 @@ FROM zupacr.azurecr.io/jvm-limited:latest
 MAINTAINER Netflix OSS <conductor@netflix.com>
 
 # Copy the project directly onto the image
-COPY . /conductor
+COPY ../ /conductor
 WORKDIR /conductor
 
 # Make app folders
