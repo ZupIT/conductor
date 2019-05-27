@@ -19,8 +19,8 @@ node {
 
     deployDockerService {
       dockerRepositoryName = "zupme-conductor_server"
-      dockerSwarmStack = "zupme-conductor_server"
-      dockerService = ""
+      dockerSwarmStack = "zupme-conductor"
+      dockerService = "server"
       team = "gateway"
       dockerRegistryGroup = "ZUPME"
       dockerSwarmGroup = "ZUPME_QA"
