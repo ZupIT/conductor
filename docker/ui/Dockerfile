@@ -25,6 +25,10 @@ RUN apk update && apk add \
 # Make app folders
 RUN mkdir -p /app/ui
 
+RUN ls -l
+
+RUN pwd
+
 # Copy the ui files onto the image
 COPY ./docker/ui/bin /app
 COPY ./ui /app/ui
