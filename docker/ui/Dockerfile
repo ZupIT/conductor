@@ -4,6 +4,10 @@
 FROM node:9-alpine
 MAINTAINER Netflix OSS <conductor@netflix.com>
 
+# Copy the project directly onto the image
+COPY ../../ /conductor
+WORKDIR /conductor
+
 # Install the required packages for the node build
 # to run on alpine
 RUN apk update && apk add \
