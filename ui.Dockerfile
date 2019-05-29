@@ -36,6 +36,8 @@ COPY ./ui /app/ui
 # Copy the files for the server into the app folders
 RUN chmod +x /app/startup.sh
 
+RUN rm -f ./ui/package-lock.json
+
 # Get and install conductor UI
 RUN cd /app/ui \
   && npm install \
