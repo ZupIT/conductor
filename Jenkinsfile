@@ -18,14 +18,6 @@ node {
       dockerRegistryGroup = "ZUPME"
     }
 
-    buildDockerContainer {
-      dockerRepositoryName = "zupme-conductor_ui"
-      dockerFileLocation = "."
-      dockerFileName = "ui.Dockerfile"
-      team = "gateway"
-      dockerRegistryGroup = "ZUPME"
-    }
-
     deployDockerService {
       dockerRepositoryName = "zupme-conductor_server"
       dockerSwarmStack = "zupme-conductor"
@@ -33,6 +25,14 @@ node {
       team = "gateway"
       dockerRegistryGroup = "ZUPME"
       dockerSwarmGroup = "ZUPME_QA"
+    }
+
+    buildDockerContainer {
+      dockerRepositoryName = "zupme-conductor_ui"
+      dockerFileLocation = "."
+      dockerFileName = "ui.Dockerfile"
+      team = "gateway"
+      dockerRegistryGroup = "ZUPME"
     }
 
     deployDockerService {
