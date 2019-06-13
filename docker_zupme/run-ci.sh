@@ -1,9 +1,5 @@
 #!/bin/bash
 
-rm `find . -name *.lock`
-
-cp -R /cache /home/.gradle
-
-./gradlew generateLock updateLock saveLock
+cp -R /cache /home/gradle/.gradle
 
 ./gradlew clean build
